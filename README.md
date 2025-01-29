@@ -8,8 +8,14 @@ To manually install simply move the scripts you like into /usr/local/bin/ or /ho
 Or to automatically install run the following commands
 ```
 git clone https://github.com/thoroftroy/Red-Utils.git
+```
+```
 cd Red-Utils
+```
+```
 chmod +x install-scripts.sh
+```
+```
 sudo ./install-scripts.sh
 ```
 
@@ -18,6 +24,8 @@ Uninstall
 run the following command while in the Red-Utils directory
 ```
 chmod +x uninstall-scripts.sh
+```
+```
 sudo ./uninstall-scripts.sh
 ```
 If all else fails manually uninstall by deleting desired scripts from /usr/local/bin/ and /home/USRNAME/bin
