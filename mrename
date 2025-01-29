@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Check if the user provided a new name
+if [ -z "$1" ]; then
+    echo "Usage: mrename 'NEW NAME'"
+    exit 1
+fi
+
+# Store the provided new name
+NEW_NAME=$1
+
+# Initialize a counter for episode numbering
+count=1
+
+# Loop through each file in the current directory
+for file in *; do
+    # Check if it's a file (not a directory)
+    if [ -f "$file" ]; then
+        # Extract the file extension
+        ext="${file##*.}"
+
+        # Check if the file has a common video extension
+        if [[ "$ext" =~ ^(mkv|mp4|avi|mov|flv|wmv)$ ]]; then
+            # Construct the new filename with the correct numbering
+            new_file="${NEW_NAME} - $(printf "%02d" $count).${ext}"
+
+            # Rename the file
+            mv "$file" "$new_file"
+            # Increment the counter
+            ((count++))
+        fi
+    fi
+done

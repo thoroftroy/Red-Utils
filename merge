@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# Usage: merge_drive_folders.sh [source_root] [target_folder]
+# Default source_root is the current directory, and default target_folder is "merged_files" in the current directory.
+
+# Set source_root and target_folder
+source_root="${1:-.}"
+target_folder="${2:-merged_files}"
+
+# Create the target folder if it doesn't exist
+mkdir -p "$target_folder"
+
+# Loop through all drive-download folders
+find "$source_root" -type d -name "drive-download*" | while read -r drive_folder; do
+    echo "Processing folder: $drive_folder"
+    
+    # Find and copy all files from the current folder
+    find "$drive_folder" -type f | while read -r file; do
+        filename=$(basename "$file")
+        target_file="$target_folder/$filename"
+
+        # Handle duplicate filenames
+        if [[ -e "$target_file" ]]; then
+            counter=1
+            base="${filename%.*}"
+            ext="${filename##*.}"
+            [[ "$base" == "$ext" ]] && ext="" || ext=".$ext"
+            while [[ -e "$target_folder/${base}_${counter}${ext}" ]]; do
+                ((counter++))
+            done
+            target_file="$target_folder/${base}_${counter}${ext}"
+        fi
+
+        # Copy the file
+        cp -p "$file" "$target_file"
+        echo "Copied: $file -> $target_file"
+    done
+done
+
+echo "All files have been merged into $target_folder."
