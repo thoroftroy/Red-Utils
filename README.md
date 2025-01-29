@@ -1,13 +1,13 @@
 # Red-Utils
 A collection of command line scripts to make life a little easier 
 
-Manual Instal 
+Manual Install
 ----------------
 Simply move the scripts you like into /usr/local/bin/ or /home/USRNAME/bin 
 
 Manual Uninstall
 ----------------
-to uninstall delete desired scripts from /usr/local/bin/ and /home/USRNAME/bin
+To uninstall delete desired scripts from /usr/local/bin/ and /home/USRNAME/bin
 
 Example from cli:
 
@@ -15,7 +15,7 @@ Example from cli:
 sudo rm -f /usr/local/bin/rolldice
 ```
 ```
-sudo rm -f /home/<yourusername>/bin/rolldice
+sudo rm -f /home/USRNAME/bin/rolldice
 ```
 
 # Merge
