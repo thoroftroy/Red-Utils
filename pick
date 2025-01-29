@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# If no argument is passed, use the current directory
+TARGET_PATH="${1:-$(pwd)}"
+
+# Get the absolute path and check if it exists
+TARGET_PATH=$(realpath "$TARGET_PATH")
+if [ ! -d "$TARGET_PATH" ]; then
+    echo "Error: Path '$TARGET_PATH' does not exist or is not a directory."
+    exit 1
+fi
+
+# Get the list of files and directories in the target path
+entries=("$TARGET_PATH"/*)
+
+# Check if the directory is empty
+if [ ${#entries[@]} -eq 0 ]; then
+    echo "The directory '$TARGET_PATH' is empty."
+    exit 0
+fi
+
+# Randomly select an entry
+RANDOM_ENTRY=${entries[RANDOM % ${#entries[@]}]}
+
+# Print the randomly chosen file or folder
+echo "Randomly chosen: $RANDOM_ENTRY"
