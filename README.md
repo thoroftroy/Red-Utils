@@ -3,11 +3,11 @@ A collection of command line scripts to make life a little easier
 
 Manual Instal 
 ----------------
-Simply move the scripts you like into /home/<yourusername>/bin
+Simply move the scripts you like into /usr/local/bin/ or /home/USRNAME/bin 
 
 Manual Uninstall
 ----------------
-to uninstall delete desired scripts from /usr/local/bin/ and /home/<yourusername>/bin
+to uninstall delete desired scripts from /usr/local/bin/ and /home/USRNAME/bin
 
 Example from cli:
 
