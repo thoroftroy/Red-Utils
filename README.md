@@ -5,31 +5,19 @@ Install
 ----------------
 To manually install simply move the scripts you like into /usr/local/bin/ or /home/USRNAME/bin 
 
-Or to automatically install run the following command
+Or to automatically install run the following commands
 ```
-sudo ./install-scripts.sh
-```
-if that doesn't work run
-```
+git clone https://github.com/thoroftroy/Red-Utils.git
+cd Red-Utils
 chmod +x install-scripts.sh
-```
-the run 
-```
 sudo ./install-scripts.sh
 ```
 
 Uninstall
 ----------------
-run the following command
-```
-sudo ./uninstall-scripts.sh
-```
-if that doesn't work run
+run the following command while in the Red-Utils directory
 ```
 chmod +x uninstall-scripts.sh
-```
-the run 
-```
 sudo ./uninstall-scripts.sh
 ```
 If all else fails manually uninstall by deleting desired scripts from /usr/local/bin/ and /home/USRNAME/bin
