@@ -1,22 +1,38 @@
 # Red-Utils
 A collection of command line scripts to make life a little easier 
 
-Manual Install
+Install
 ----------------
-Simply move the scripts you like into /usr/local/bin/ or /home/USRNAME/bin 
+To manually install simply move the scripts you like into /usr/local/bin/ or /home/USRNAME/bin 
 
-Manual Uninstall
+Or to automatically install run the following command
+```
+sudo ./install-scripts.sh
+```
+if that doesn't work run
+```
+chmod +x install-scripts.sh
+```
+the run 
+```
+sudo ./install-scripts.sh
+```
+
+Uninstall
 ----------------
-To uninstall delete desired scripts from /usr/local/bin/ and /home/USRNAME/bin
-
-Example from cli:
-
+run the following command
 ```
-sudo rm -f /usr/local/bin/rolldice
+sudo ./uninstall-scripts.sh
 ```
+if that doesn't work run
 ```
-sudo rm -f /home/USRNAME/bin/rolldice
+chmod +x uninstall-scripts.sh
 ```
+the run 
+```
+sudo ./uninstall-scripts.sh
+```
+If all else fails manually uninstall by deleting desired scripts from /usr/local/bin/ and /home/USRNAME/bin
 
 # Merge
 A command that merges all files in the directories and their sub directories into one
