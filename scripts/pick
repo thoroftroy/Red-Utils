@@ -22,5 +22,6 @@ fi
 # Randomly select an entry
 RANDOM_ENTRY=${entries[RANDOM % ${#entries[@]}]}
 
-# Print the randomly chosen file or folder
-echo "Randomly chosen: $RANDOM_ENTRY"
+# Print the full path and the base name
+echo "Randomly chosen (full path): $RANDOM_ENTRY"
+echo "Filename only: $(basename "$RANDOM_ENTRY")"
