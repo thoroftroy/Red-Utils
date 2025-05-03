@@ -81,6 +81,34 @@ Examples:
   rolldice flip 3        # Flips a coin 3 times
 ```
 
+# CleanF
+A script which deletes any files with specific extentions, this is for people coping a bunch of files from an Akaso Ek7000 (or other) camera/gopro. The files after recording will have an mp4 as well as two other files which aren't really needed so this deletes all of those. 
+
+Usage
+-----------------
+```
+Usage: cleanF [dir]
+
+Options:
+  dir   Specifies the directory to clean, if left blank will clean the current directory
+
+Examples:
+  cleanF    # Cleans all files in current directory
+  cleanF ~/Movies        # Cleans all files in the Movies directory
+```
+
+# wifiPassword
+Shows the current wifi password and some other information. This file is just one line and you could achive the same effect with a simple alias command but here we are. This will NOT show wifi passwords for networks you are not currently connected to. 
+
+Usage
+-----------------
+```
+Usage: wifiPassword
+
+Examples:
+  wifiPassword    # Displays the password of the currently connected wifi. 
+```
+
 # Mrename or Mass Rename
 This is specifically designed for episodes and similar things, most file editors have the function built in nowadays so this is redundent. The file is here for archival purposes.
 It will rename everything in the current directory to the specified name followed by a number. It does so sequentially. 
