@@ -1,5 +1,5 @@
 # Red-Utils
-A collection of command line scripts to make life a little easier 
+A collection of command line scripts to make life a little easier (this is designed for linux and will only work on linux. I have also only tested it on fedora linux so there may be some compatability errors between versions)
 
 Install
 ----------------
