@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Check for directory argument
+if [ -z "$1" ]; then
+  echo "Usage: $0 <directory>"
+  exit 1
+fi
+
+DIR="$1"
+
+# Verify it exists and is a directory
+if [ ! -d "$DIR" ]; then
+  echo "Error: '$DIR' is not a directory"
+  exit 2
+fi
+
+# Create tar.zst filename
+ARCHIVE_NAME="${DIR%/}.tar.zst"
+
+# Create the archive
+tar -I zstd -cf "$ARCHIVE_NAME" "$DIR"
+
+echo "Compressed '$DIR' to '$ARCHIVE_NAME'"
