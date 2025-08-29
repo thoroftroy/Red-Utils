@@ -108,6 +108,48 @@ Usage: wifiPassword
 Examples:
   wifiPassword    # Displays the password of the currently connected wifi. 
 ```
+# Squish
+Squishes all md files into a single txt document. I am using this to save all my obsidian notes into one txt document
+
+squish — export all Markdown files under the current directory into one text file.
+
+USAGE
+  squish [OUTPUT_NAME] [options]
+
+ARGS
+  OUTPUT_NAME         Base name of the output file (without extension).
+                      Default: all_notes
+
+OPTIONS
+  -d, --dir, /d DIR   Directory to save the output file into (created if needed).
+  -f, --force         Overwrite existing output file without prompting.
+  -h, --help, /h, /?  Show this help.
+
+BEHAVIOR
+  • Walks recursively from the current directory (".").
+  • Finds files matching "*.md".
+  • Sorts paths, then writes:
+        ===== ./relative/path/to/file.md =====
+        <file contents>
+    to a single text file named OUTPUT_NAME.txt in the chosen directory.
+  • Preserves relative paths as headers for organization.
+
+EXAMPLES
+  squish
+      -> ./all_notes.txt
+
+  squish project_dump
+      -> ./project_dump.txt
+
+  squish -d /tmp
+      -> /tmp/all_notes.txt
+
+  squish my_log --dir ~/exports -f
+      -> ~/exports/my_log.txt (overwrite if exists)
+
+NOTES
+  • Run this from your Obsidian vault root to capture the whole vault.
+  • Relative headers keep your folder structure visible in the export.
 
 # Mrename or Mass Rename
 This is specifically designed for episodes and similar things, most file editors have the function built in nowadays so this is redundent. The file is here for archival purposes.
