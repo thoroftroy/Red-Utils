@@ -1,0 +1,129 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+print_help() {
+cat <<'EOF'
+squish — export all Markdown files under the current directory into one text file.
+
+USAGE
+  squish [OUTPUT_NAME] [options]
+
+ARGS
+  OUTPUT_NAME         Base name of the output file (without extension).
+                      Default: all_notes
+
+OPTIONS
+  -d, --dir, /d DIR   Directory to save the output file into (created if needed).
+  -f, --force         Overwrite existing output file without prompting.
+  -h, --help, /h, /?  Show this help.
+
+BEHAVIOR
+  • Walks recursively from the current directory (".").
+  • Finds files matching "*.md".
+  • Sorts paths, then writes:
+        ===== ./relative/path/to/file.md =====
+        <file contents>
+    to a single text file named OUTPUT_NAME.txt in the chosen directory.
+  • Preserves relative paths as headers for organization.
+
+EXAMPLES
+  squish
+      -> ./all_notes.txt
+
+  squish project_dump
+      -> ./project_dump.txt
+
+  squish -d /tmp
+      -> /tmp/all_notes.txt
+
+  squish my_log --dir ~/exports -f
+      -> ~/exports/my_log.txt (overwrite if exists)
+
+NOTES
+  • Run this from your Obsidian vault root to capture the whole vault.
+  • Relative headers keep your folder structure visible in the export.
+
+EOF
+}
+
+# Defaults
+output_name="all_notes"
+target_dir="."
+force_overwrite=0
+
+# Parse args
+args=()
+while (($#)); do
+  case "$1" in
+    help|-h|--help|/h|"/?")
+      print_help; exit 0;;
+    -d|--dir|/d)
+      shift
+      [[ $# -ge 1 ]] || { echo "Error: missing value for --dir"; exit 2; }
+      target_dir="$1"
+      ;;
+    -f|--force)
+      force_overwrite=1
+      ;;
+    --dir=*)
+      target_dir="${1#*=}"
+      ;;
+    *)
+      # First non-flag is output name
+      if [[ "${1:0:1}" == "-" || "${1:0:1}" == "/" ]]; then
+        echo "Unknown option: $1" >&2
+        echo "Try: squish --help" >&2
+        exit 2
+      fi
+      args+=("$1")
+      ;;
+  esac
+  shift
+done
+
+if (( ${#args[@]} >= 1 )); then
+  output_name="${args[0]}"
+fi
+
+# Normalize and prepare paths
+mkdir -p -- "$target_dir"
+target_dir_abs="$(cd "$target_dir" && pwd)"
+outfile="${target_dir_abs}/${output_name}.txt"
+
+if [[ -e "$outfile" && $force_overwrite -ne 1 ]]; then
+  read -r -p "File exists: $outfile — overwrite? [y/N] " ans
+  case "$ans" in
+    y|Y|yes|YES) ;;
+    *) echo "Aborted."; exit 1;;
+  esac
+fi
+
+# Create/empty the output file safely
+: > "$outfile"
+
+# Walk, sort, and concatenate
+# Use null-delimited paths to handle spaces/newlines robustly.
+if ! command -v sort >/dev/null 2>&1; then
+  echo "Error: 'sort' not found." >&2
+  exit 3
+fi
+
+# Collect *.md files; if none, exit gracefully.
+mapfile -d '' files < <(find . -type f -name '*.md' -print0 | sort -z)
+if (( ${#files[@]} == 0 )); then
+  echo "No Markdown files (*.md) found under the current directory."
+  exit 0
+fi
+
+for file in "${files[@]}"; do
+  # Strip trailing null from mapfile (already removed), ensure readable
+  if [[ -r "$file" ]]; then
+    printf '===== %s =====\n' "$file" >> "$outfile"
+    cat -- "$file" >> "$outfile"
+    printf '\n\n' >> "$outfile"
+  else
+    printf '===== %s =====\n[unreadable]\n\n' "$file" >> "$outfile"
+  fi
+done
+
+echo "Wrote: $outfile"
